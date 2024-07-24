@@ -179,11 +179,11 @@ st.markdown("""
     height: 100%;
     object-fit: cover;
 }
-# .mentor p {
-#     color: #FFFFFF;
-#     font-size: 18px;
-#     text-align: center;
-# }
+.mentor p {
+    color: #FFFFFF;
+    font-size: 18px;
+    text-align: center;
+}
 .section-content {
     background-color: #E0FFFF; /* Light Cyan */
     padding: 15px;
@@ -314,6 +314,22 @@ st.markdown("""
     .generated-caption {
     color: #FFFFFF;
 }
+.blue-button {
+        background-color: #20B2AA;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 8px;
+        margin: 6px 3px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .blue-button:hover {
+        background-color: #00BFFF; /* Deep Sky Blue */
+        transform: scale(1.05);
+    }
 
     </style>
 """, unsafe_allow_html=True)
@@ -478,7 +494,7 @@ if section == "Image Captioning":
          """, unsafe_allow_html=True)
 
         # Display the button only if an image is uploaded
-        if st.button("Generate Caption", key="generate_caption1"):
+        if st.markdown('<button class="blue-button">Generate Caption</button>', unsafe_allow_html=True):
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
