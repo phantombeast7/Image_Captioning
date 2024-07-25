@@ -177,12 +177,18 @@ st.markdown("""
     display: inline-block;
     clip-path: circle();
     margin: 0 20px; /* Add space between logo and title */
-}                                       
+    max-width: 100%; /* Ensure the image fits within the frame */
+    max-height: 100%; /* Ensure the image fits within the frame */
+    flex-shrink: 0.3; /* Prevent the circle from shrinking */
+}                                 
 
 .circle-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    max-width: 100%; /* Ensure the image fits within the frame */
+    max-height: 100%; /* Ensure the image fits within the frame */
+}
 }
 .mentor p {
     color: #FFFFFF;
