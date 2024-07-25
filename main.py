@@ -61,9 +61,14 @@ use_case_images_base64 = {
     "Digital Marketing": convert_image_to_base64("images/Digital Marketing.jpeg"),
     "Media and Entertainment": convert_image_to_base64("images/Media and Entertainment.jpeg"),
     "Healthcare": convert_image_to_base64("images/health.jpeg"),
-    "Accessibility Solutions": convert_image_to_base64("images/accessibility.jpeg")
+    "Accessibility Solutions": convert_image_to_base64("images/accessibility.jpeg"),
+    "Visually Impaired": convert_image_to_base64("images/visually impaired.jpeg")
 }
 xrayimage = convert_image_to_base64("static/xray.jpg")
+# Convert images to base64
+video_icon_base64 = convert_image_to_base64("images/video icon.png")
+multilingual_icon_base64 = convert_image_to_base64("images/translate.png")
+creative_icon_base64 = convert_image_to_base64("images/creative icon.png")
 
 # Paths to your images (converted to base64 for Streamlit)
 infosis_logo_path = 'images/infosis_logo.png'
@@ -118,7 +123,7 @@ st.markdown("""
 
 }
 .stButton button {
-    background-color: #00BFFF; /* Deep Sky Blue */
+    background-color: #00BFFF !important; /* Deep Sky Blue */
     color: white;
     border: none;
     padding: 12px 28px;
@@ -337,7 +342,7 @@ st.markdown("""
 # Sidebar navigation
 st.sidebar.title("Navigation")
 section = st.sidebar.radio("Go to",
-                           ["Home", "About Project", "Business Use Cases", "Code Explanation", "Image Captioning"])
+                           ["Home", "About Project", "Business Use Cases", "Code Explanation", "Image Captioning","Conclusion"])
 
 if section == "Home":
     st.markdown(f"""
@@ -362,13 +367,11 @@ elif section == "About Project":
     st.markdown("""
     <div class="section">
         <h1>About the Project</h1>
-        <p>The Image Captioning project is designed to provide descriptive captions for images to aid visually impaired individuals. By leveraging advanced deep learning models, this project aims to convert visual content into meaningful textual descriptions, enhancing accessibility and inclusivity.</p>
-        <p>The system uses a pre-trained model to generate captions, offering a user-friendly interface for inputting images and receiving automated descriptions. This tool can be valuable in various domains such as e-commerce, digital marketing, media, healthcare, and accessibility solutions.</p>
+        <p>The Image Captioning project focuses on generating descriptive captions for images using advanced deep learning models. This technology aims to convert visual content into meaningful textual descriptions, making it accessible to visually impaired individuals.</p>
+        <p>By leveraging pre-trained models, the system provides a user-friendly interface for uploading images and receiving automated captions. This tool can be applied in various domains such as e-commerce, digital marketing, media, healthcare, and accessibility solutions, enhancing the overall user experience and inclusivity.</p>
     </div>
     """, unsafe_allow_html=True)
-
-# Display section
-if section == "Business Use Cases":
+elif section == "Business Use Cases":
     st.markdown("""
     <div class="section">
         <h1>Business Use Cases</h1>
@@ -376,11 +379,18 @@ if section == "Business Use Cases":
     """, unsafe_allow_html=True)
 
     use_cases = {
-        "E-commerce": """
+        "Visually Impaired": """
             <ul>
-                <li><strong>Automatic Tagging:</strong> Use image captioning to automatically tag product images with relevant keywords. This improves product visibility and discoverability.</li>
-                <li><strong>Enhanced Search:</strong> Captioning helps in creating more accurate product descriptions, which enhances the search functionality on e-commerce platforms.</li>
-                <li><strong>Personalized Recommendations:</strong> By understanding product images better, recommendations can be more accurately tailored to individual users.</li>
+                <li><strong>Descriptive Captions:</strong> Generate detailed and accurate captions for images to help visually impaired individuals understand visual content.</li>
+                <li><strong>Accessibility:</strong> Enhance accessibility by providing text descriptions for images, making digital content more inclusive.</li>
+                <li><strong>Assistive Technology:</strong> Integrate with assistive technologies like screen readers to provide real-time image descriptions.</li>
+            </ul>
+        """,
+        "Healthcare": """
+            <ul>
+                <li><strong>X-ray Image Captioning:</strong> Provide detailed descriptions of X-ray images to support radiologists and other healthcare professionals in their analyses.</li>
+                <li><strong>Telemedicine:</strong> Enhance telemedicine platforms by providing detailed descriptions of visual data shared between patients and doctors.</li>
+                <li><strong>Patient Education:</strong> Help patients understand medical images and reports through clear and concise captions.</li>
             </ul>
         """,
         "Digital Marketing": """
@@ -395,13 +405,6 @@ if section == "Business Use Cases":
                 <li><strong>Content Creation:</strong> Assist content creators by automatically generating descriptions and tags for images and videos.</li>
                 <li><strong>Video Summarization:</strong> Use image captioning to summarize video content by creating descriptions for key frames.</li>
                 <li><strong>Enhanced User Experience:</strong> Provide better user experiences by offering detailed descriptions of visual content.</li>
-            </ul>
-        """,
-        "Healthcare": """
-            <ul>
-                <li><strong>X-ray Image Captioning:</strong> Provide detailed descriptions of X-ray images to support radiologists and other healthcare professionals in their analyses.</li>
-                <li><strong>Telemedicine:</strong> Enhance telemedicine platforms by providing detailed descriptions of visual data shared between patients and doctors.</li>
-                <li><strong>Patient Education:</strong> Help patients understand medical images and reports through clear and concise captions.</li>
             </ul>
         """,
         "Accessibility Solutions": """
@@ -423,7 +426,8 @@ if section == "Business Use Cases":
                     <img src="data:image/jpeg;base64,{use_case_images_base64[use_case]}" alt="{use_case}">
                 </div>
                 <div class="expander-content">
-                    {details}  </div>
+                    {details}
+                
             </div>
             """, unsafe_allow_html=True)
 
@@ -498,8 +502,7 @@ if section == "Image Captioning":
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
-                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>",
-                            unsafe_allow_html=True)
+                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>", unsafe_allow_html=True)
 
     else:
         # Optional: Display a message when no image is uploaded
@@ -621,16 +624,18 @@ if section == "Image Captioning":
         </div>
         """, unsafe_allow_html=True)
 
-        # Extract the image name
-        image_name = uploaded_image.name
-        # Check if the image name is in the new CSV
-        if image_name in new_df['image_name'].values:
-            # Get the caption from the dataframe
-            caption = new_df[new_df['image_name'] == image_name]['caption'].values[0]
-            st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption}</div>",
-                        unsafe_allow_html=True)
-        else:
-            st.write("Image not found in the dataset.")
+        # Add a button to generate the caption
+        if st.button("Generate Caption", key="generate_caption2"):
+            # Extract the image name
+            image_name = uploaded_image.name
+            # Check if the image name is in the new CSV
+            if image_name in new_df['image_name'].values:
+                # Get the caption from the dataframe
+                caption = new_df[new_df['image_name'] == image_name]['caption'].values[0]
+                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption}</div>",
+                            unsafe_allow_html=True)
+            else:
+                st.write("Image not found in the dataset.")
 
         # # Centered button for Use Case 2
         # if st.button("Generate Caption for Healthcare", key="generate_caption2"):
@@ -643,3 +648,44 @@ if section == "Image Captioning":
         # Optional: Display a message when no image is uploaded
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
 
+# Conclusion section with icons and descriptions
+if section == "Conclusion":
+    st.markdown("""
+    <div class="section">
+        <h1>Conclusion and Future Scope</h1>
+        <p>Image captioning has made significant progress in identifying the context and describing the input image, but there are ongoing efforts to
+improve its accuracy, fluency, and ability to capture nuanced details and context.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="section">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{video_icon_base64}" alt="Video Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2>Video Captioning</h2>
+                <p>Extending image captioning to generate descriptions for video sequences.</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{multilingual_icon_base64}" alt="Multilingual Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2>Multilingual Captioning</h2>
+                <p>Developing models that can generate captions in multiple languages.</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{creative_icon_base64}" alt="Creative Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2>Creative Captioning</h2>
+                <p>Generating more descriptive and engaging captions that go beyond simple descriptions.</p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
