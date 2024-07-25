@@ -498,11 +498,12 @@ if section == "Image Captioning":
          """, unsafe_allow_html=True)
 
         # Display the button only if an image is uploaded
-        if st.markdown('<button class="blue-button">Generate Caption</button>', unsafe_allow_html=True):
+        if st.button("Generate Caption", key="generate_caption1"):
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
                 st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>", unsafe_allow_html=True)
+
 
     else:
         # Optional: Display a message when no image is uploaded
