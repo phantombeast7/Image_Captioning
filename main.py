@@ -66,8 +66,8 @@ use_case_images_base64 = {
 xrayimage = convert_image_to_base64("static/xray.jpg")
 
 # Paths to your images (converted to base64 for Streamlit)
-infosis_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\infosis_logo.png'
-springboard_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\springboard.png'
+infosis_logo_path = 'images/infosis_logo.png'
+springboard_logo_path = 'images/springboard.png'
 
 infosis_logo_base64 = convert_image_to_base64(infosis_logo_path)
 springboard_logo_base64 = convert_image_to_base64(springboard_logo_path)
