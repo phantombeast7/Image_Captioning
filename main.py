@@ -7,8 +7,6 @@ import requests
 import torch
 from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 from transformers import BlipProcessor, BlipForConditionalGeneration
-import pyttsx3
-
 
 @st.cache_resource
 def load_model_and_processor():
