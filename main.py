@@ -9,8 +9,6 @@ from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2Se
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import pyttsx3
 
-# Initialize the text-to-speech engine
-engine = pyttsx3.init()
 
 @st.cache_resource
 def load_model_and_processor():
@@ -586,12 +584,8 @@ if section == "Image Captioning":
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
-                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>",
-                            unsafe_allow_html=True)
+                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>", unsafe_allow_html=True)
 
-                # Speak the generated caption
-                engine.say(caption1)
-                engine.runAndWait()
     else:
         # Optional: Display a message when no image is uploaded
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
