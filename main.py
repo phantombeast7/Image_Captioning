@@ -7,7 +7,10 @@ import requests
 import torch
 from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import pyttsx3
 
+# Initialize the text-to-speech engine
+engine = pyttsx3.init()
 
 @st.cache_resource
 def load_model_and_processor():
@@ -71,8 +74,8 @@ multilingual_icon_base64 = convert_image_to_base64("images/translate.png")
 creative_icon_base64 = convert_image_to_base64("images/creative icon.png")
 
 # Paths to your images (converted to base64 for Streamlit)
-infosis_logo_path = 'images/infosis_logo.png'
-springboard_logo_path = 'images/springboard.png'
+infosis_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\infosis_logo.png'
+springboard_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\springboard.png'
 
 infosis_logo_base64 = convert_image_to_base64(infosis_logo_path)
 springboard_logo_base64 = convert_image_to_base64(springboard_logo_path)
@@ -85,43 +88,90 @@ st.set_page_config(
 )
 
 st.markdown("""
-    <style>
-    /* General Styling */
-# body {
-#     background-color: #F0F8FF; /* Lightest blue background */
-#     color: #333;
-#     font-family: 'Arial', sans-serif;
-# }
-.main {
-    background-color: #04142b; /* White background for content */
-    padding: 20px;
-    border-radius: 12px;
-    color: #333;
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Prevent scrolling */
 }
-# .sidebar .sidebar-content {
-#     background-color: #FFFFFF; /* White background for sidebar */
-#     padding: 15px;
-#     border-radius: 12px;
-#     color: #333;
-# }
-.home-container {
+
+.main-container {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.section {
+    flex: 1;
+    padding: 10px;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.header, .footer {
+    flex: 0 0 auto;
+    padding: 10px;
+    background-color: #04142b;
+    color: white;
+    text-align: center;
+}
+
+.content {
+    flex: 1;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.circle-frame {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    clip-path: circle();
+    margin: 0 20px;
+    max-width: 100%;
+    max-height: 100%;
+    flex-shrink: 0;
+}
+
+.circle-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.conclusion-section {
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50vh; /* Set height to full viewport height */
+}
 
-    }
+.conclusion-section h1 {
+    margin-bottom: 20px;
+}
 
-.full-screen-container {
+.conclusion-section p {
+    margin-bottom: 20px;
+}
+
+.conclusion-section div {
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    overflow: hidden; /* Ensure no scrollbars appear */
-    margin: 0; /* Remove any default margin */
+    margin-bottom: 0px;
 }
 
+.conclusion-section img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
 }
+
 .stButton button {
     background-color: #00BFFF !important; /* Deep Sky Blue */
     color: white;
@@ -134,15 +184,18 @@ st.markdown("""
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
+
 .stButton button:hover {
     background-color: #1E90FF; /* Dodger Blue */
     transform: scale(1.05);
 }
+
 .stFileUploader label {
     font-size: 16px;
     font-weight: bold;
     color: #00BFFF; /* Deep Sky Blue */
 }
+
 .header {
     display: flex;
     justify-content: center;
@@ -153,12 +206,14 @@ st.markdown("""
     width: 150px;
     height: auto;
 }
+
 .title {
     font-size: 36px;
     font-weight: bold;
     text-align: center;
     color: #00BFFF; /* Deep Sky Blue */
 }
+
 .section {
     background-color: #87CEFA; /* Light Sky Blue */
     padding: 20px;
@@ -166,9 +221,11 @@ st.markdown("""
     margin-bottom: 20px;
     box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
 }
+
 .section h1, .section h2, .section p, .section li {
     color: #000000; /* White text color */
 }
+
 .circle-frame {
     border-radius: 50%;
     overflow: hidden;
@@ -180,7 +237,7 @@ st.markdown("""
     max-width: 100%; /* Ensure the image fits within the frame */
     max-height: 100%; /* Ensure the image fits within the frame */
     flex-shrink: 0.3; /* Prevent the circle from shrinking */
-}                                 
+}
 
 .circle-frame img {
     width: 100%;
@@ -189,12 +246,13 @@ st.markdown("""
     max-width: 100%; /* Ensure the image fits within the frame */
     max-height: 100%; /* Ensure the image fits within the frame */
 }
-}
+
 .mentor p {
     color: #FFFFFF;
     font-size: 18px;
     text-align: center;
 }
+
 .section-content {
     background-color: #E0FFFF; /* Light Cyan */
     padding: 15px;
@@ -202,17 +260,20 @@ st.markdown("""
     margin-top: 10px;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
 }
+
 .section-content h2 {
     font-size: 24px;
     color: #00BFFF; /* Deep Sky Blue */
     margin-bottom: 10px;
 }
+
 .st-expander {
     background-color: #00BFFF; /* Deep Sky Blue */
     padding: 12px;
     border-radius: 15px;
     margin-bottom: 12px;
 }
+
 .expander-container {
     background-color: #FFFFFF; /* White background for boxes */
     padding: 15px;
@@ -221,6 +282,7 @@ st.markdown("""
     color: #333;
     margin-bottom: 12px; /* Space between expanders */
 }
+
 .expander-header {
     font-size: 24px;
     font-weight: bold;
@@ -228,6 +290,7 @@ st.markdown("""
     margin-bottom: 12px;
     text-align: center;
 }
+
 .expander-header img {
     height: 200px; /* Adjusted height for images */
     border-radius: 10px;
@@ -235,14 +298,17 @@ st.markdown("""
     display: block;
     margin: 0 auto 12px auto; /* Centered with margin */
 }
+
 .expander-content {
     font-size: 16px;
 }
+
 .code-explanation-container {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
+
 .code-step {
     background-color: #E0FFFF; /* Light Cyan */
     padding: 10px;
@@ -251,6 +317,7 @@ st.markdown("""
     border-radius: 12px;
     box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
 }
+
 .code-step h2 {
     color: #00BFFF; /* Deep Sky Blue */
     margin-bottom: 4px;
@@ -264,32 +331,38 @@ st.markdown("""
     margin-top: 20px;
     box-shadow: 0px 6px 12px rgba(0,0,0,0.2);
 }
+
 .caption-section h1 {
     color: #00CED1; /* Dark Turquoise */
     font-size: 32px;
     text-align: center;
     margin-bottom: 15px;
 }
+
 .caption-section .upload-section {
     background-color: #FFFFFF; /* White background */
     padding: 20px;
     border-radius: 12px;
     border: 2px solid #00CED1; /* Dark Turquoise border */
 }
+
 .caption-section .upload-section img {
     border-radius: 8px;
     box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
     display: block;
     margin: 0 auto;
 }
+
 .caption-section .stFileUploader label {
     color: #00CED1; /* Dark Turquoise */
 }
+
 .caption-section .stButton {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .caption-section .stButton button {
     background-color: #00CED1; /* Dark Turquoise */
     color: white;
@@ -299,50 +372,55 @@ st.markdown("""
     border-radius: 12px;
     transition: background-color 0.3s, transform 0.3s;
 }
+
 .caption-section .stButton button:hover {
     background-color: #20B2AA; /* Light Sea Green */
     transform: scale(1.05);
 }
+
 .caption-section .generated-caption {
-        text-align: left;
-        align:center;
-        color: #333;
-        margin-top: 20px;
-        overflow: hidden; /* Hide overflow text */
-        text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    }
-    .generated-caption {
-        text-align: left;
-        # font-size: 20px;
-        margin-top: 20px;
-            overflow: hidden; /* Hide overflow text */
-        text-overflow: clip; /* Clip the text without ellipsis */
-    }
+    text-align: left;
+    align:center;
+    color: #333;
+    margin-top: 20px;
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+.generated-caption {
+    text-align: left;
+    # font-size: 20px;
+    margin-top: 20px;
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: clip; /* Clip the text without ellipsis */
+}
 
 .streamlit-expanderHeader {
-        color: white !important;
-    }
-    .generated-caption {
+    color: white !important;
+}
+
+.generated-caption {
     color: #FFFFFF;
 }
-.blue-button {
-        background-color: #20B2AA;
-        color: white;
-        border: none;
-        padding: 12px 28px;
-        text-align: center;
-        font-size: 16px;
-        border-radius: 8px;
-        margin: 6px 3px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-    .blue-button:hover {
-        background-color: #00BFFF; /* Deep Sky Blue */
-        transform: scale(1.05);
-    }
 
-    </style>
+.blue-button {
+    background-color: #20B2AA;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    margin: 6px 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.blue-button:hover {
+    background-color: #00BFFF; /* Deep Sky Blue */
+    transform: scale(1.05);
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Sidebar navigation
@@ -508,9 +586,12 @@ if section == "Image Captioning":
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
-                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>",
+                            unsafe_allow_html=True)
 
-
+                # Speak the generated caption
+                engine.say(caption1)
+                engine.runAndWait()
     else:
         # Optional: Display a message when no image is uploaded
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
@@ -667,7 +748,7 @@ improve its accuracy, fluency, and ability to capture nuanced details and contex
 
     st.markdown(f"""
     <div class="section">
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <div style="display: flex; align-items: center; margin-bottom: 0px;">
             <div style="flex: 0 0 50px;">
                 <img src="data:image/png;base64,{video_icon_base64}" alt="Video Icon" style="width: 50px; height: 50px;">
             </div>
@@ -676,7 +757,7 @@ improve its accuracy, fluency, and ability to capture nuanced details and contex
                 <p>Extending image captioning to generate descriptions for video sequences.</p>
             </div>
         </div>
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <div style="display: flex; align-items: center; margin-bottom: 0px;">
             <div style="flex: 0 0 50px;">
                 <img src="data:image/png;base64,{multilingual_icon_base64}" alt="Multilingual Icon" style="width: 50px; height: 50px;">
             </div>
