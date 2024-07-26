@@ -1,13 +1,22 @@
-import streamlit as st
-from PIL import Image
+import os
+import torch
 import base64
+import requests
 import numpy as np
 import pandas as pd
-import requests
-import torch
-from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2SeqLM
+from PIL import Image
+from gtts import gTTS
+import streamlit as st
 from transformers import BlipProcessor, BlipForConditionalGeneration
+from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 
+def speak_text(text):
+    # Generate a unique filename for each caption
+    audio_filename = f"caption_{uuid.uuid4()}.mp3"
+    tts = gTTS(text)
+    tts.save(audio_filename)
+    return audio_filename
+    
 @st.cache_resource
 def load_model_and_processor():
     processor = AutoProcessor.from_pretrained("microsoft/git-base-coco")
@@ -582,7 +591,15 @@ if section == "Image Captioning":
             with st.spinner('Generating caption...'):
                 processor, model = load_model_and_processor()
                 caption1 = predict_caption(image1, processor, model)
-                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption1}</div>",
+                            unsafe_allow_html=True)
+
+                # Generate the caption audio
+                audio_path = speak_text(caption1)
+
+
+                # Play the caption immediately
+                st.audio(audio_path, format="audio/mp3")
 
     else:
         # Optional: Display a message when no image is uploaded
