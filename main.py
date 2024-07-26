@@ -10,13 +10,13 @@ import streamlit as st
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from transformers import AutoProcessor, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 
+
 def speak_text(text):
-    # Generate a unique filename for each caption
-    audio_filename = f"caption_{uuid.uuid4()}.mp3"
     tts = gTTS(text)
-    tts.save(audio_filename)
-    return audio_filename
-    
+    audio_path = "caption.mp3"
+    tts.save(audio_path)
+    return audio_path
+
 @st.cache_resource
 def load_model_and_processor():
     processor = AutoProcessor.from_pretrained("microsoft/git-base-coco")
@@ -63,6 +63,16 @@ def convert_image_to_base64(image_path):
         encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
     return encoded_string
 
+# def display_speaker_icon(audio_path):
+#     st.markdown(f"""
+#     <div style="position: relative; display: inline-block;">
+#         <button onclick="document.getElementById('audio').play()">
+#             <img src="https://example.com/speaker_icon.png" style="width:50px; height:50px; cursor: pointer;"/>
+#         </button>
+#         <audio id="audio" src="{audio_path}"></audio>
+#     </div>
+#     """, unsafe_allow_html=True)
+
 # Base64 encoded images (Replace these with your actual image paths)
 use_case_images_base64 = {
     "E-commerce": convert_image_to_base64("images/ecom.jpeg"),
@@ -79,8 +89,8 @@ multilingual_icon_base64 = convert_image_to_base64("images/translate.png")
 creative_icon_base64 = convert_image_to_base64("images/creative icon.png")
 
 # Paths to your images (converted to base64 for Streamlit)
-infosis_logo_path = 'images/infosis_logo.png'
-springboard_logo_path = 'images/springboard.png'
+infosis_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\infosis_logo.png'
+springboard_logo_path = 'C:\\Users\\nabin\\PycharmProjects\\Image Captioning\\.venv\\images\\springboard.png'
 
 infosis_logo_base64 = convert_image_to_base64(infosis_logo_path)
 springboard_logo_base64 = convert_image_to_base64(springboard_logo_path)
@@ -600,7 +610,6 @@ if section == "Image Captioning":
 
                 # Play the caption immediately
                 st.audio(audio_path, format="audio/mp3")
-
     else:
         # Optional: Display a message when no image is uploaded
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
