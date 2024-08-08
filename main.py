@@ -137,26 +137,9 @@ body, html {
     overflow: hidden; /* Prevent scrolling */
 }
 
-.circle-frame {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 180px;
-    height: 180px;
-    display: inline-block;
-    clip-path: circle();
-    margin: 0 20px;
-    max-width: 100%;
-    max-height: 100%;
-    flex-shrink: 0;
-}
 
-.circle-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    max-width: 100%;
-    max-height: 100%;
-}
+
+
 
 .conclusion-section {
     height: 100vh; /* Full viewport height */
@@ -241,26 +224,8 @@ body, html {
     color: #000000; /* White text color */
 }
 
-.circle-frame {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 180px;
-    height: 180px;
-    display: inline-block;
-    clip-path: circle();
-    margin: 0 20px; /* Add space between logo and title */
-    max-width: 100%; /* Ensure the image fits within the frame */
-    max-height: 100%; /* Ensure the image fits within the frame */
-    flex-shrink: 0.3; /* Prevent the circle from shrinking */
-}
 
-.circle-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    max-width: 100%; /* Ensure the image fits within the frame */
-    max-height: 100%; /* Ensure the image fits within the frame */
-}
+
 
 .mentor p {
     color: #FFFFFF;
@@ -447,13 +412,7 @@ if section == "Home":
     st.markdown(f"""
     <div class="full-screen-container home-container">
         <div class="header">
-            <div class="circle-frame">
-                <img src="data:image/png;base64,{infosis_logo_base64}" alt="Infosis Logo">
-            </div>
-            <div class="title">Image Captioning for Visually Impaired</div>
-            <div class="circle-frame">
-                <img src="data:image/png;base64,{springboard_logo_base64}" alt="Springboard Logo">
-            </div>
+            <div class="title">Image Captioning Using Transformers</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -530,46 +489,6 @@ elif section == "Business Use Cases":
             </div>
             """, unsafe_allow_html=True)
 
-
-elif section == "Code Explanation":
-    st.markdown("""
-        <div class="section">
-            <h1 style="text-align: center; font-size: 32px; color: #000000;">Code Breakdown</h1>
-            <div class="code-explanation-container">
-                <div class="code-step">
-                    <h2>Model Building</h2>
-                    <p>In this section, we explain the steps involved in building and evaluating image captioning models.</p>
-                    <ol>
-                        <li><strong>Divide the Dataset:</strong> The dataset is divided into three subsets:
-                            <ul>
-                                <li><strong>Training Set (70%):</strong> This subset is used to train the model.</li>
-                                <li><strong>Test Set (20%):</strong> This subset is used to evaluate the model’s performance during training.</li>
-                                <li><strong>Validation Set (10%):</strong> This subset is used to fine-tune the model and validate its performance after training.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Build Models:</strong> We build and evaluate three types of models:
-                            <ul>
-                                <li><strong>CNN + RNN:</strong> A Convolutional Neural Network (CNN) is used to extract features from images. These features are then fed into a Recurrent Neural Network (RNN) to generate descriptive captions.</li>
-                                <li><strong>CNN + LSTM:</strong> Similar to the CNN + RNN approach, but instead of an RNN, we use a Long Short-Term Memory (LSTM) network to generate captions from the features extracted by the CNN.</li>
-                                <li><strong>Pre-Trained Models:</strong> We use pre-trained models such as VGG for feature extraction. The extracted features are then used with LSTM or RNN for caption generation.
-                                    <ul>
-                                        <li><strong>VGG Model:</strong> We utilize the VGG16 model, a well-known CNN architecture pre-trained on ImageNet, to extract features from images. These features are then used to train an LSTM network for generating captions.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><strong>Evaluate Models:</strong> 
-                            <ul>
-                                <li>Step 1: Build the three models described above and calculate performance metrics, such as BLEU scores, on both the training and test datasets to determine their effectiveness.</li>
-                                <li>Step 2: Select the best-performing model based on these metrics and use it to predict captions on the validation dataset. Report the final performance metrics for this model.</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
 # Image Captioning Section
 if section == "Image Captioning":
     st.markdown("""
@@ -614,145 +533,6 @@ if section == "Image Captioning":
         # Optional: Display a message when no image is uploaded
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
 
-    # Divider between Use Case 1 and Use Case 2
-    st.markdown("<hr class='divider'>", unsafe_allow_html=True)
-
-
-    # Use Case 2
-    st.markdown("""
-        <div class="section-content">
-            <h2>Use Case 2: Healthcare Image Captioning</h2>
-            <p>Upload an image related to Healthcare to generate a caption.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.write("## Overview")
-    st.write(
-        """<p style='color: gray;'>
-        X-ray captioning involves generating descriptive captions for medical X-ray images to aid in
-        diagnostic processes and medical reporting.
-        </p>
-        """, unsafe_allow_html=True
-    )
-    st.markdown(
-        f"""
-            <div >
-                <img src="data:image/jpeg;base64,{xrayimage}" alt="Sample" class="h-auto mb-4 rounded-lg shadow-lg"/>
-            </div>
-            """,
-        unsafe_allow_html=True
-    )
-
-    st.write("## Data Preprocessing")
-    st.write(
-        """<p style='color: gray;'>
-        Data preprocessing steps involve cleaning and preparing the X-ray images and associated text
-        data for model training..</p>
-        """, unsafe_allow_html=True
-    )
-
-    code = '''
-            # Function to preprocess text by cleaning and normalizing
-            def preprocess_text(text):
-                text = text.lower()
-                text = re.sub(r'http\S+|www\S+|ftp\S+', '', text) # removing the links
-                text = text.replace('\\n', ' ') # removing the new lines
-                text = re.sub(r'\w*\d\w*', '', text) # removing the words containing numbers
-                text = re.sub(r'\s+', ' ', text).strip() # removing the spaces
-                text = re.sub(r'[^\w\s]', '', text) # removing special characters
-                words = text.split()
-                stop_words = set(stopwords.words('english'))
-                words = [word for word in words if word not in stop_words] # considering only normal words
-                stemmer = PorterStemmer()
-                words = [stemmer.stem(word) for word in words] # considering the stemmed words
-                lemmatizer = WordNetLemmatizer()
-                words = [lemmatizer.lemmatize(word) for word in words] #considering the lemmatized words
-                text = ' '.join(words)
-                return text
-        '''
-
-    # Display the code snippet
-    st.code(code, language='python')
-
-    # Update the file path
-    df = pd.read_csv("static/train_caption_df.csv")
-    df1 = df.iloc[:, [1, 2]]
-    st.write("### Unprocessed captions data")
-    st.dataframe(df1)
-
-    # Display the second dataframe with columns 3 and 4
-    df2 = df.iloc[:, [2, 3]]
-    st.write("### Processed captions data")
-    st.dataframe(df2)
-
-    st.write("## Image Preprocessing")
-    st.write(
-        """<p style='color: gray;'>
-        Image preprocessing techniques include resizing, normalization, and augmentation to enhance
-        the quality and consistency of input images for the captioning model..</p>
-        """, unsafe_allow_html=True
-    )
-
-    df3 = pd.read_csv('static/test_preprocessed_df.csv')
-    st.write("### Processed Images & Captions data")
-    st.dataframe(df3)
-
-    st.write("## Model Metrics")
-    st.write("### Model Performance Metrics")
-    st.write(
-        """<p style='color: gray;'>
-        The table below shows the performance metrics of the X-ray captioning model..</p>
-        """, unsafe_allow_html=True
-    )
-
-    # Display metrics in a table
-    st.table(model_metrics)
-
-    # Add image captioning section
-    st.write("## Image Captioning")
-    st.write(
-        """<p style='color: gray;'>
-        Upload an image to generate a caption using the fine-tuned model..</p>
-        """, unsafe_allow_html=True
-    )
-
-    # Load new CSV file containing image names and captions
-    new_df = pd.read_csv("static/new_image_captions.csv")
-
-    # Image upload
-    uploaded_image = st.file_uploader('Upload an image', type=["png", "jpg", "jpeg"])
-
-    if uploaded_image is not None:
-        # Display the uploaded image using the expander-header
-        st.markdown(f"""
-        <div class="expander-header">
-            <img src="data:image/jpeg;base64,{base64.b64encode(uploaded_image.getvalue()).decode()}" alt="Uploaded Image">
-        </div>
-        """, unsafe_allow_html=True)
-
-        # Add a button to generate the caption
-        if st.button("Generate Caption", key="generate_caption2"):
-            # Extract the image name
-            image_name = uploaded_image.name
-            # Check if the image name is in the new CSV
-            if image_name in new_df['image_name'].values:
-                # Get the caption from the dataframe
-                caption = new_df[new_df['image_name'] == image_name]['caption'].values[0]
-                st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption}</div>",
-                            unsafe_allow_html=True)
-            else:
-                st.write("Image not found in the dataset.")
-
-        # # Centered button for Use Case 2
-        # if st.button("Generate Caption for Healthcare", key="generate_caption2"):
-        #     with st.spinner('Please wait, generating caption...'):
-        #         xray_processor, xray_model = load_xray_model_and_processor()
-        #         caption2 = predict_xray_caption(image2, xray_processor, xray_model)
-        #         st.markdown(f"<div class='generated-caption'><strong>Generated Caption:</strong> {caption2}</div>",
-        #                     unsafe_allow_html=True)
-    else:
-        # Optional: Display a message when no image is uploaded
-        st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
 
 # Conclusion section with icons and descriptions
 if section == "Conclusion":
