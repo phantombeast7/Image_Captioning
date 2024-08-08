@@ -413,7 +413,6 @@ if section == "Home":
 
 
 
-
 elif section == "About Project":
     st.markdown("""
     <div class="section">
@@ -432,6 +431,7 @@ elif section == "About Project":
         <p>Overall, this project demonstrates the potential of AI in creating inclusive technologies that can significantly improve the lives of visually impaired individuals.</p>
     </div>
     """, unsafe_allow_html=True)
+
 
 elif section == "Business Use Cases":
     st.markdown("""
