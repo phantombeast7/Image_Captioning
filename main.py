@@ -560,29 +560,30 @@ if section == "Image Captioning":
 if section == "Conclusion":
     st.markdown("""
     <div class="section">
-        <h1 style="text-align: center; font-size: 32px; color: #000000;">Conclusion and Future Scope</h1>
-        <p>Image captioning has made significant progress in identifying the context and describing the input image, but ongoing efforts continue to improve its accuracy, fluency, and ability to capture nuanced details and context.</p>
+        <h1>Conclusion and Future Scope</h1>
+        <p>Image captioning has made significant progress in identifying the context and describing the input image, but there are ongoing efforts to
+improve its accuracy, fluency, and ability to capture nuanced details and context.</p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown(f"""
     <div class="section">
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; margin-bottom: 0px;">
             <div style="flex: 0 0 50px;">
                 <img src="data:image/png;base64,{video_icon_base64}" alt="Video Icon" style="width: 50px; height: 50px;">
             </div>
             <div style="flex: 1; padding-left: 20px;">
-                <h2 style="margin: 0;">Video Captioning</h2>
-                <p>Expanding image captioning to generate descriptions for video sequences, addressing the challenges of temporal dynamics.</p>
+                <h2>Video Captioning</h2>
+                <p>Extending image captioning to generate descriptions for video sequences.</p>
             </div>
         </div>
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; margin-bottom: 0px;">
             <div style="flex: 0 0 50px;">
                 <img src="data:image/png;base64,{multilingual_icon_base64}" alt="Multilingual Icon" style="width: 50px; height: 50px;">
             </div>
             <div style="flex: 1; padding-left: 20px;">
-                <h2 style="margin: 0;">Multilingual Captioning</h2>
-                <p>Developing models that can generate captions in multiple languages, making the technology accessible to a global audience.</p>
+                <h2>Multilingual Captioning</h2>
+                <p>Developing models that can generate captions in multiple languages.</p>
             </div>
         </div>
         <div style="display: flex; align-items: center;">
@@ -590,10 +591,9 @@ if section == "Conclusion":
                 <img src="data:image/png;base64,{creative_icon_base64}" alt="Creative Icon" style="width: 50px; height: 50px;">
             </div>
             <div style="flex: 1; padding-left: 20px;">
-                <h2 style="margin: 0;">Creative Captioning</h2>
-                <p>Generating more descriptive and engaging captions that go beyond simple descriptions, adding creativity and context.</p>
+                <h2>Creative Captioning</h2>
+                <p>Generating more descriptive and engaging captions that go beyond simple descriptions.</p>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
