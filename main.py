@@ -88,13 +88,6 @@ video_icon_base64 = convert_image_to_base64("images/video icon.png")
 multilingual_icon_base64 = convert_image_to_base64("images/translate.png")
 creative_icon_base64 = convert_image_to_base64("images/creative icon.png")
 
-# Paths to your images (converted to base64 for Streamlit)
-infosis_logo_path = 'images/infosis_logo.png'
-springboard_logo_path = 'images/springboard.png'
-
-infosis_logo_base64 = convert_image_to_base64(infosis_logo_path)
-springboard_logo_base64 = convert_image_to_base64(springboard_logo_path)
-
 # Set the page configuration
 st.set_page_config(
     page_title="Image Captioning for Visually Impaired",
