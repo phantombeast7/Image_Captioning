@@ -135,7 +135,7 @@ body, html {
 
 
 .conclusion-section {
-    height: 100vh; /* Full viewport height */
+    height: 200vh; /* Full viewport height */
     overflow: hidden; /* Prevent scrolling */
     display: flex;
     flex-direction: column;
