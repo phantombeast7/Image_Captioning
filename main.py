@@ -417,20 +417,33 @@ elif section == "About Project":
     st.markdown("""
         <div class="section">
             <h1 style="text-align: center; font-size: 32px; color: #000000;">About the Project</h1>
-            <div class="code-explanation-container">
-                <div class="code-step">
-                    <p>This project aims to create an image captioning application that generates descriptive captions for images using advanced deep learning models. The application is designed to be particularly beneficial for visually impaired individuals, providing them with an audio description of visual content.</p>
-                    
-                    <p>In this project, we've implemented the following features:</p>
-                    <ul>
-                        <li><strong>Model Integration:</strong> We integrated pre-trained models from Hugging Face's Transformers library, including models specialized for general image captioning and X-ray image captioning.</li>
-                        <li><strong>GPU Utilization:</strong> The application checks for available GPU resources and uses them for faster processing, enhancing the performance of the caption generation.</li>
-                        <li><strong>Text-to-Speech Conversion:</strong> After generating the captions, the application uses Google Text-to-Speech (gTTS) to convert the text into audio, making the captions accessible in audio format.</li>
-                        <li><strong>Streamlit Interface:</strong> The application is built with Streamlit, providing a user-friendly interface for uploading images, generating captions, and playing the audio output.</li>
-                        <li><strong>Custom Styling:</strong> The app features custom CSS styling to enhance the user experience, ensuring that the interface is visually appealing and easy to navigate.</li>
-                        <li><strong>Business Use Cases:</strong> We also showcase different business use cases where image captioning can be beneficial, such as in healthcare, digital marketing, and accessibility solutions.</li>
-                    </ul>
-                    <p>Overall, this project demonstrates the potential of AI in creating inclusive technologies that can significantly improve the lives of visually impaired individuals.</p>
+            <div class="project-explanation-container">
+                <div class="project-details">
+                    <h2>Project Overview</h2>
+                    <p>This project is focused on creating an accessible image captioning tool that leverages advanced deep learning models. The main objective is to provide meaningful captions for images, making visual content more accessible to visually impaired individuals.</p>
+                </div>
+                <div class="project-details">
+                    <h2>Key Features Implemented</h2>
+                    <ol>
+                        <li><strong>Model Integration:</strong> 
+                            <p>We integrated pre-trained models from Hugging Face's Transformers library to handle both general image captioning and specialized domains like X-ray image captioning.</p>
+                        </li>
+                        <li><strong>GPU Utilization:</strong> 
+                            <p>The code dynamically checks for available GPU resources and leverages them for efficient model inference, significantly speeding up the caption generation process.</p>
+                        </li>
+                        <li><strong>Text-to-Speech Conversion:</strong> 
+                            <p>The project includes a feature that converts the generated captions into speech using Google Text-to-Speech (gTTS), enhancing accessibility for users with visual impairments.</p>
+                        </li>
+                        <li><strong>Streamlit Interface:</strong> 
+                            <p>The user interface is built with Streamlit, allowing users to easily upload images, generate captions, and listen to the audio output of those captions.</p>
+                        </li>
+                        <li><strong>Custom Styling:</strong> 
+                            <p>We've applied custom CSS to ensure the application is visually appealing and user-friendly.</p>
+                        </li>
+                        <li><strong>Business Use Cases:</strong> 
+                            <p>The application can be used in various domains, including healthcare, digital marketing, and accessibility solutions, showcasing its versatility and practical benefits.</p>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
