@@ -416,19 +416,23 @@ if section == "Home":
 elif section == "About Project":
     st.markdown("""
     <div class="section">
-        <h1>About the Project</h1>
-        <p>This project aims to create an image captioning application that generates descriptive captions for images using advanced deep learning models. The application is designed to be particularly beneficial for visually impaired individuals, providing them with an audio description of visual content.</p>
-        
-        <h2>Features</h2>
-        <ul>
-            <li><strong>Model Integration:</strong> We integrated pre-trained models from Hugging Face's Transformers library, including models specialized for general image captioning and X-ray image captioning.</li>
-            <li><strong>GPU Utilization:</strong> The application checks for available GPU resources and uses them for faster processing, enhancing the performance of the caption generation.</li>
-            <li><strong>Text-to-Speech Conversion:</strong> After generating the captions, the application uses Google Text-to-Speech (gTTS) to convert the text into audio, making the captions accessible in audio format.</li>
-            <li><strong>Streamlit Interface:</strong> The application is built with Streamlit, providing a user-friendly interface for uploading images, generating captions, and playing the audio output.</li>
-            <li><strong>Custom Styling:</strong> The app features custom CSS styling to enhance the user experience, ensuring that the interface is visually appealing and easy to navigate.</li>
-            <li><strong>Business Use Cases:</strong> We also showcase different business use cases where image captioning can be beneficial, such as in healthcare, digital marketing, and accessibility solutions.</li>
-        </ul>
-        <p>Overall, this project demonstrates the potential of AI in creating inclusive technologies that can significantly improve the lives of visually impaired individuals.</p>
+        <h1 style="text-align: center; font-size: 32px; color: #000000;">About the Project</h1>
+        <div class="code-explanation-container">
+            <div class="code-step">
+                <p>This project aims to create an image captioning application that generates descriptive captions for images using advanced deep learning models. The application is designed to be particularly beneficial for visually impaired individuals, providing them with an audio description of visual content.</p>
+                
+                <p>In this project, we've implemented the following features:</p>
+                <ul>
+                    <li><strong>Model Integration:</strong> We integrated pre-trained models from Hugging Face's Transformers library, including models specialized for general image captioning and X-ray image captioning.</li>
+                    <li><strong>GPU Utilization:</strong> The application checks for available GPU resources and uses them for faster processing, enhancing the performance of the caption generation.</li>
+                    <li><strong>Text-to-Speech Conversion:</strong> After generating the captions, the application uses Google Text-to-Speech (gTTS) to convert the text into audio, making the captions accessible in audio format.</li>
+                    <li><strong>Streamlit Interface:</strong> The application is built with Streamlit, providing a user-friendly interface for uploading images, generating captions, and playing the audio output.</li>
+                    <li><strong>Custom Styling:</strong> The app features custom CSS styling to enhance the user experience, ensuring that the interface is visually appealing and easy to navigate.</li>
+                    <li><strong>Business Use Cases:</strong> We also showcase different business use cases where image captioning can be beneficial, such as in healthcare, digital marketing, and accessibility solutions.</li>
+                </ul>
+                <p>Overall, this project demonstrates the potential of AI in creating inclusive technologies that can significantly improve the lives of visually impaired individuals.</p>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
