@@ -557,38 +557,43 @@ if section == "Image Captioning":
         st.markdown("<p style='color: gray;'>Please upload an image to generate a caption.</p>", unsafe_allow_html=True)
 
 
-elif section == "About Project":
+if section == "Conclusion":
     st.markdown("""
-        <div class="section">
-            <h1 style="text-align: center; font-size: 32px; color: #000000;">About the Project</h1>
-            <div class="project-explanation-container">
-                <div class="project-details">
-                    <h2>Project Overview</h2>
-                    <p>This project is focused on creating an accessible image captioning tool that leverages advanced deep learning models. The main objective is to provide meaningful captions for images, making visual content more accessible to visually impaired individuals.</p>
-                </div>
-                <div class="project-details">
-                    <h2>Key Features Implemented</h2>
-                    <ol>
-                        <li><strong>Model Integration:</strong> 
-                            <p>We integrated pre-trained models from Hugging Face's Transformers library to handle both general image captioning and specialized domains like X-ray image captioning.</p>
-                        </li>
-                        <li><strong>GPU Utilization:</strong> 
-                            <p>The code dynamically checks for available GPU resources and leverages them for efficient model inference, significantly speeding up the caption generation process.</p>
-                        </li>
-                        <li><strong>Text-to-Speech Conversion:</strong> 
-                            <p>The project includes a feature that converts the generated captions into speech using Google Text-to-Speech (gTTS), enhancing accessibility for users with visual impairments.</p>
-                        </li>
-                        <li><strong>Streamlit Interface:</strong> 
-                            <p>The user interface is built with Streamlit, allowing users to easily upload images, generate captions, and listen to the audio output of those captions.</p>
-                        </li>
-                        <li><strong>Custom Styling:</strong> 
-                            <p>We've applied custom CSS to ensure the application is visually appealing and user-friendly.</p>
-                        </li>
-                        <li><strong>Business Use Cases:</strong> 
-                            <p>The application can be used in various domains, including healthcare, digital marketing, and accessibility solutions, showcasing its versatility and practical benefits.</p>
-                        </li>
-                    </ol>
-                </div>
+    <div class="section">
+        <h1 style="text-align: center; font-size: 32px; color: #000000;">Conclusion and Future Scope</h1>
+        <p>Image captioning has made significant progress in identifying the context and describing the input image, but ongoing efforts continue to improve its accuracy, fluency, and ability to capture nuanced details and context.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="section">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{video_icon_base64}" alt="Video Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2 style="margin: 0;">Video Captioning</h2>
+                <p>Expanding image captioning to generate descriptions for video sequences, addressing the challenges of temporal dynamics.</p>
             </div>
         </div>
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{multilingual_icon_base64}" alt="Multilingual Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2 style="margin: 0;">Multilingual Captioning</h2>
+                <p>Developing models that can generate captions in multiple languages, making the technology accessible to a global audience.</p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="flex: 0 0 50px;">
+                <img src="data:image/png;base64,{creative_icon_base64}" alt="Creative Icon" style="width: 50px; height: 50px;">
+            </div>
+            <div style="flex: 1; padding-left: 20px;">
+                <h2 style="margin: 0;">Creative Captioning</h2>
+                <p>Generating more descriptive and engaging captions that go beyond simple descriptions, adding creativity and context.</p>
+            </div>
+        </div>
+    </div>
     """, unsafe_allow_html=True)
+
