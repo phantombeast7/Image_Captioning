@@ -107,7 +107,7 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh; /* Full viewport height */
+    height: 200vh; /* Full viewport height */
     overflow: hidden; /* Prevent scrolling */
 }
 
