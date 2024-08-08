@@ -419,7 +419,7 @@ elif section == "About Project":
         <h1>About the Project</h1>
         <p>This project aims to create an image captioning application that generates descriptive captions for images using advanced deep learning models. The application is designed to be particularly beneficial for visually impaired individuals, providing them with an audio description of visual content.</p>
         
-        <p>In this project, we've implemented the following features:</p>
+        <h2>Features</h2>
         <ul>
             <li><strong>Model Integration:</strong> We integrated pre-trained models from Hugging Face's Transformers library, including models specialized for general image captioning and X-ray image captioning.</li>
             <li><strong>GPU Utilization:</strong> The application checks for available GPU resources and uses them for faster processing, enhancing the performance of the caption generation.</li>
@@ -431,6 +431,7 @@ elif section == "About Project":
         <p>Overall, this project demonstrates the potential of AI in creating inclusive technologies that can significantly improve the lives of visually impaired individuals.</p>
     </div>
     """, unsafe_allow_html=True)
+
 
 
 elif section == "Business Use Cases":
